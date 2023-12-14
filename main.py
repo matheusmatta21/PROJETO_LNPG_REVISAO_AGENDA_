@@ -10,31 +10,44 @@ import math
 #Adicione um recurso para visualizar a lista de contatos na interface.
 
 #def para validação dos valores
-def validacao(): 
-    nome = inputNome.get()
-    numero = int(inputNumero.get())
-    email = inputEmail.get() 
-    preferencial = comboboxPreferencial.get()
-    labelerrorgeral = Label(window,text='Ocorreu um erro! Preencha os dados corretamente.')
-    labelerrorgeral.pack()
-    if nome  ==  "":
-        labelerrorgeral = Label(window,text='Ocorreu um erro! Preencha os dados corretamente.')
-        labelerrorgeral.pack()
-    if math.isnan(numero) == True: #ver dps quando o numero nn for nada
-        labelerrorgeral = Label(window,text='Ocorreu um erro! Preencha os dados corretamente.')
-        labelerrorgeral.pack()
-    if email not in ["@","."]:
-        labelerrorgeral = Label(window,text='Ocorreu um erro! Preencha os dados corretamente.')
-        labelerrorgeral.pack()
-    if preferencial == "":
-        labelerrorgeral = Label(window,text='Ocorreu um erro! Preencha os dados corretamente.')
-        labelerrorgeral.pack()
 
 
-def escreverDados():
-    arquivo = open("contatos.txt", "a", encoding="utf-8")
-    arquivo.write(f"{inputNome.get()},{inputNumero.get()},{inputEmail.get()},{comboboxPreferencial.get()}\n")
-    arquivo.close()
+
+def escreverDados(): #sem validação
+        nome = inputNome.get()
+        numero = int(inputNumero.get())
+        email = inputEmail.get() 
+        preferencial = comboboxPreferencial.get()
+        arquivo = open("contatos.txt", "a", encoding="utf-8")
+        arquivo.write(f"{nome},{numero},{email},{preferencial}\n")
+        arquivo.close()
+    
+
+def escreverDados2(): ##com validacao incompleta
+        nome = inputNome.get()
+        if nome == '':
+             labelerror2 = Label(window,text="Digite um nome!")
+             labelerror2.pack()
+        numero = inputNumero.get()
+        if numero == "":
+            labelErro = Label(window, text="Digite um número válido.")
+            labelErro.pack() 
+        email = inputEmail.get()
+        if email == '':
+            labelerror3 = Label(window,text="Insira um email!")
+            labelerror3.pack()
+        elif email not in ['@', '.']:
+             labelerror4 = Label(window, text="Insira a formatação certa do email")
+             labelerror4.pack()
+        preferencial = comboboxPreferencial.get()
+        if preferencial == "":
+             labelerror5 = Label(window, text="Selecione uma opção da caixa")
+             labelerror5.pack()
+        arquivo = open("contatos.txt", "a", encoding="utf-8")
+        arquivo.write(f"{nome},{numero},{email},{preferencial}\n")
+        arquivo.close()
+       
+     
 
 def lerDados():
     windowTwo = Tk() #passivel de erro
@@ -90,7 +103,7 @@ comboboxPreferencial = Combobox(window, values=valores)
 comboboxPreferencial.pack()
 
 #Botões de enviar e limpar e ver contatos
-btn = Button(window,text="Enviar", command=escreverDados)
+btn = Button(window,text="Enviar", command=escreverDados2)
 btn.pack()
 
 btn2 = Button(window,text="Limpar", command=limpar_arquivo)
